@@ -1,0 +1,9 @@
+{
+  "type": "TIP_ALERT",
+  "config": {
+    "delayingTips": {
+      "delay": 5000,
+      "enable": true
+    }
+  }
+}

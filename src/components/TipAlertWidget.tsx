@@ -1,28 +1,19 @@
+// /app/components/TipAlertWidget.ts
+
 'use client';
 
 import { useEffect, useState } from 'react';
 import { DonatePayload } from '@/types';
 import { SocketManager } from '@/lib/SocketManager';
-import { ErrorWidget } from '@/components/ErrorWidget';
+import { ErrorWidget } from './ErrorWidget';
 import { useTipplyStatus } from '@/hooks/useTipplyStatus';
 import { useDonateQueue } from '@/hooks/useDonateQueue';
-import SimpleGsapAnimation from './testanimation'; // ← nasz stały komponent
+import { matchTemplate } from '../lib/templates';
 
-export default function TipAlertWidget({
-  type = "TIP_ALERT",
-  uuid = "03100c39-9cb5-49a2-bace-84d8002d68ad",
-}: {
-  type: string;
-  uuid: string;
-}) {
+export default function TipAlertWidget({ type, uuid }: { type: string; uuid: string }) {
   const { isLoading, isValid } = useTipplyStatus(type, uuid);
   const { current, addDonate, removeCurrent } = useDonateQueue();
   const [connected, setConnected] = useState(false);
-
-  const sound1 =
-    'https://dxokx05hbd6dq.cloudfront.net/upload/media/user/0006/52/eebc99ee8c6af6578afd29d443bbf540efd1e796.mp3';
-
-  
 
   useEffect(() => {
     if (!uuid || !isValid) return;
@@ -52,16 +43,20 @@ export default function TipAlertWidget({
 
   if (!current) return <p>Brak nowych tipów</p>;
 
+  const template = matchTemplate(current);
+  if (!template) return <p>Brak pasującego szablonu</p>;
+
+  const Component = template.template;
+
   return (
-    <SimpleGsapAnimation
-      donate={{
-        nickname: current.nickname,
-        amount: current.amount,
-        message: current.message,
-      }}
-      sound={sound1 ? { url: sound1 } : undefined}
-      speech={current.message ? { text: current.message } : undefined}
-      onAnimationEnd={removeCurrent}
+    <Component
+      donate={current}
+      images={template.images}
+      withCommission={true}
+      beat={true}
+      onAnimationEnd={removeCurrent} // ← usuń donate po zakończeniu animacji + dźwięku
+      sound={template.sound} // ← przekaż konfigurację dźwięku
+      speech={template.speech} // ← przekaż konfigurację TTS
     />
   );
 }

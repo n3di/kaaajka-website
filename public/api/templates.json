@@ -1,0 +1,209 @@
+[
+  {
+    "id": "default",
+    "config": {
+      "amountCents": 0,
+      "images": [
+        "https://tipply.pl/upload/media/user/0002/34/dcba4b98efb5425eb46114645dcf706bfbd7aad6.gif"
+      ],
+      "sound": {
+        "url": "https://dxokx05hbd6dq.cloudfront.net/upload/media/user/0006/64/6239c69f64f1624abbe87da76c5089366e57a4f5.mp",
+        "volume": 1
+      },
+      "amountWithoutCommission": false,
+      "speechSynthesizer": {
+        "options": {
+          "volume": 0.4,
+          "readAmount": true,
+          "readMessage": true,
+          "readNickname": true,
+        },
+        "voiceType": "GOOGLE_POLISH_FEMALE"
+      }
+    }
+  },
+  {
+    "id": "tip-from-500",
+    "config": {
+      "amountCents": 500,
+      "images": [
+        "https://tipply.pl/upload/media/user/0001/72/acf010c217f825445a764938dc97eb54b5e641c2.gif"
+      ],
+      "sound": {
+        "url": "https://tipply.pl/upload/media/user/0001/72/c969d09a03b032b2eb03922327b286b351ec855b.mpga",
+        "volume": 1
+      },
+      "amountWithoutCommission": false,
+      "speechSynthesizer": {
+        "options": {
+          "volume": 0.4,
+          "readAmount": true,
+          "readMessage": true,
+          "readNickname": true,
+        },
+        "voiceType": "GOOGLE_POLISH_FEMALE"
+      }
+    }
+  },
+  {
+    "id": "tip-from-2500",
+    "config": {
+      "amountCents": 2500,
+      "images": [
+        "https://tipply.pl/upload/media/user/0001/72/842253ed2b3c1eeac7d9c828320ab73fbdd359d8.gif"
+      ],
+      "sound": {
+        "url": "https://tipply.pl/upload/media/user/0001/81/872a760d7279cc06997609c2fc76d6c0037807a3.mpga",
+        "volume": 1
+      },
+      "amountWithoutCommission": false,
+      "speechSynthesizer": {
+        "options": {
+          "volume": 0.4,
+          "readAmount": true,
+          "readMessage": true,
+          "readNickname": true,
+        },
+        "voiceType": "GOOGLE_POLISH_FEMALE"
+      }
+    }
+  },
+  {
+    "id": "tip-from-5000",
+    "config": {
+      "amountCents": 5000,
+      "images": [
+        "https://tipply.pl/upload/media/user/0002/34/9f45a5dd1b56d79ec4fb669f2d4037150d116e5c.gif"
+      ],
+      "sound": {
+        "url": "https://tipply.pl/upload/media/user/0002/34/69c38da4097646a0fad6cc1b13defca0b8e3fddb.mpga",
+        "volume": 1
+      },
+      "amountWithoutCommission": false,
+      "speechSynthesizer": {
+        "options": {
+          "volume": 0.4,
+          "readAmount": true,
+          "readMessage": true,
+          "readNickname": true,
+        },
+        "voiceType": "GOOGLE_POLISH_FEMALE"
+      }
+    }
+  },
+  {
+    "id": "tip-from-10000",
+    "config": {
+      "amountCents": 10000,
+      "images": [
+        "https://tipply.pl/upload/media/user/0001/73/a54b863f6743d45bd5d4e9f72a2282c7f4d07a6b.gif"
+      ],
+      "sound": {
+        "url": "https://dxokx05hbd6dq.cloudfront.net/upload/media/user/0006/64/6239c69f64f1624abbe87da76c5089366e57a4f5.mp3",
+        "volume": 1
+      },
+      "amountWithoutCommission": false,
+      "speechSynthesizer": {
+        "options": {
+          "volume": 0.4,
+          "readAmount": true,
+          "readMessage": true,
+          "readNickname": true,
+        },
+        "voiceType": "GOOGLE_POLISH_FEMALE"
+      }
+    }
+  },
+  {
+    "id": "tip-from-15000",
+    "config": {
+      "amountCents": 15000,
+      "images": [
+        "https://tipply.pl/upload/media/user/0002/34/455ea418f572ed368e62f41fc0ed3be09ba4c494.gif"
+      ],
+      "sound": {
+        "url": "https://tipply.pl/upload/media/user/0002/34/67ea8e16cfea96f1bbb98a02e17b6c8abad6ef5d.mpga",
+        "volume": 1
+      },
+      "amountWithoutCommission": false,
+      "speechSynthesizer": {
+        "options": {
+          "volume": 0.4,
+          "readAmount": true,
+          "readMessage": true,
+          "readNickname": true,
+        },
+        "voiceType": "GOOGLE_POLISH_FEMALE"
+      }
+    }
+  },
+  {
+    "id": "tip-from-30000",
+    "config": {
+      "amountCents": 30000,
+      "images": [
+        "https://tipply.pl/upload/media/user/0006/25/47168b05ea7a9cfd89f906886b7878ab26d74423.gif"
+      ],
+      "sound": {
+        "url": "https://dxokx05hbd6dq.cloudfront.net/upload/media/user/0006/24/fd39b0f90e08c23b55619c8c409709ac89c77afa.mp3",
+        "volume": 1
+      },
+      "amountWithoutCommission": false,
+      "speechSynthesizer": {
+        "options": {
+          "volume": 0.4,
+          "readAmount": true,
+          "readMessage": true,
+          "readNickname": true,
+        },
+        "voiceType": "GOOGLE_POLISH_FEMALE"
+      }
+    }
+  },
+  {
+    "id": "tip-from-50000",
+    "config": {
+      "amountCents": 50000,
+      "images": [
+        "https://tipply.pl/upload/media/user/0006/25/47168b05ea7a9cfd89f906886b7878ab26d74423.gif"
+      ],
+      "sound": {
+        "url": "https://dxokx05hbd6dq.cloudfront.net/upload/media/user/0006/24/fd39b0f90e08c23b55619c8c409709ac89c77afa.mp3",
+        "volume": 1
+      },
+      "amountWithoutCommission": false,
+      "speechSynthesizer": {
+        "options": {
+          "volume": 0.4,
+          "readAmount": true,
+          "readMessage": true,
+          "readNickname": true,
+        },
+        "voiceType": "GOOGLE_POLISH_FEMALE"
+      }
+    }
+  },
+  {
+    "id": "tip-from-100000",
+    "config": {
+      "amountCents": 100000,
+      "images": [
+        "https://tipply.pl/upload/media/user/0001/72/acf010c217f825445a764938dc97eb54b5e641c2.gif"
+      ],
+      "sound": {
+        "url": "https://tipply.pl/upload/media/user/0001/72/c969d09a03b032b2eb03922327b286b351ec855b.mpga",
+        "volume": 1
+      },
+      "amountWithoutCommission": false,
+      "speechSynthesizer": {
+        "options": {
+          "volume": 0.4,
+          "readAmount": true,
+          "readMessage": true,
+          "readNickname": true
+        },
+        "voiceType": "GOOGLE_POLISH_FEMALE"
+      }
+    }
+  }
+]
