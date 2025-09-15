@@ -3,9 +3,9 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { DonatePayload, SoundConfig, SpeechConfig } from '@/types';
-import 'animate.css';
 import { AudioManager } from '@/lib/AudioManager';
 import Image from 'next/image';
+import GsapTipAnimation from './GsapTipAnimation';
 
 interface DefaultProps {
   donate: DonatePayload;
@@ -73,10 +73,11 @@ const Default: React.FC<DefaultProps> = ({
 
       await new Promise((res) => setTimeout(res, 1000));
       setOut(true);
+      onAnimationEnd();
     };
 
     startPlayback();
-  }, [donate.amount, donate.commission, donate.id, donate.message, donate.nickname, out, sound?.url, sound?.volume, speech, withCommission]);
+  }, [donate.amount, donate.commission, donate.id, donate.message, donate.nickname, onAnimationEnd, out, sound?.url, sound?.volume, speech, withCommission]);
 
 
   const amount = withCommission
@@ -90,28 +91,30 @@ const Default: React.FC<DefaultProps> = ({
 
   return (
     <div className="wrapper">
-      <div className="donate">
-        {!!images.length && (
-          <Image
-            src="https://tipply.pl/upload/media/user/0006/25/47168b05ea7a9cfd89f906886b7878ab26d74423.gif"
-            alt="Tip"
-            width={52}
-            height={52}
-            className="image"
-            unoptimized
-          />
-        )}
+      <GsapTipAnimation out={out} onAnimationEnd={onAnimationEnd}>
+        <div className="donate">
+          {!!images.length && (
+            <Image
+              src="https://tipply.pl/upload/media/user/0006/25/47168b05ea7a9cfd89f906886b7878ab26d74423.gif"
+              alt="Tip"
+              width={52}
+              height={52}
+              className="image"
+              unoptimized
+            />
+          )}
 
-        <div className={'user animate__animated animate__pulse'}>
-          <span className="nickname">{donate.nickname} </span>
-          wrzuca
-          <span className="amount"> {formatted}</span>
+          <div className="user">
+            <span className="nickname">{donate.nickname} </span>
+            wrzuca
+            <span className="amount"> {formatted}</span>
+          </div>
+
+          <div className="message">{donate.message}</div>
         </div>
-
-        <div className="message">{donate.message}</div>
-      </div>
+      </GsapTipAnimation>
     </div>
-  );  
+  );
 };
 
 export default Default;

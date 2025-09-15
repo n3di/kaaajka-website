@@ -34,42 +34,46 @@ export default function SimpleGsapAnimation({
 
     let isCancelled = false;
 
-    const tl = gsap.timeline({
-      defaults: { duration: 0.8, ease: 'power3.out' },
-    });
-
-    // Animacja wejścia
-    tl.fromTo(
-      containerRef.current,
-      { opacity: 0 },
-      { opacity: 1, duration: 0.2 }
-    );
-    tl.from(imageRef.current, { scale: 0, rotate: 720, duration: 1 }, '<');
-    tl.from(nicknameRef.current, { y: -100, opacity: 0 }, '-=0.5');
-    tl.from(amountRef.current, { scale: 0, opacity: 0 }, '-=0.6');
-    tl.from(messageRef.current, { y: 100, opacity: 0 }, '-=0.6');
-
-    // Beat pulse effect
-    const beatPulse = () => {
-      if (!containerRef.current) return;
-      gsap.fromTo(
-        containerRef.current,
-        { scale: 1 },
-        {
-          scale: 1.05,
-          duration: 0.15,
-          yoyo: true,
-          repeat: 1,
-          ease: 'power1.inOut',
-        }
-      );
-    };
-
     // AudioContext i audioEl
     let audioEl: HTMLAudioElement | null = null;
     let audioCtx: AudioContext | null = null;
     let analyser: AnalyserNode | null = null;
     let source: MediaElementAudioSourceNode | null = null;
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        defaults: { duration: 0.8, ease: 'power3.out' },
+      });
+
+      // Animacja wejścia
+      tl.fromTo(
+        containerRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.2 }
+      );
+      tl.from(imageRef.current, { scale: 0, rotate: 720, duration: 1 }, '<');
+      tl.from(nicknameRef.current, { y: -100, opacity: 0 }, '-=0.5');
+      tl.from(amountRef.current, { scale: 0, opacity: 0 }, '-=0.6');
+      tl.from(messageRef.current, { y: 100, opacity: 0 }, '-=0.6');
+    }, containerRef);
+
+    // Beat pulse effect
+    const beatPulse = () => {
+      if (!containerRef.current) return;
+      ctx.add(() => {
+        gsap.fromTo(
+          containerRef.current,
+          { scale: 1 },
+          {
+            scale: 1.05,
+            duration: 0.15,
+            yoyo: true,
+            repeat: 1,
+            ease: 'power1.inOut',
+          }
+        );
+      });
+    };
 
     // Funkcja do odtwarzania speech (text-to-speech), zwraca promise
     function playSpeech(text: string): Promise<void> {
@@ -144,10 +148,12 @@ export default function SimpleGsapAnimation({
 
       // Animacja wyjścia (fade out)
       await new Promise<void>((resolve) => {
-        gsap.to(containerRef.current, {
-          opacity: 0,
-          duration: 0.5,
-          onComplete: () => resolve(),
+        ctx.add(() => {
+          gsap.to(containerRef.current, {
+            opacity: 0,
+            duration: 0.5,
+            onComplete: () => resolve(),
+          });
         });
       });
 
@@ -171,7 +177,7 @@ export default function SimpleGsapAnimation({
         audioCtx.close();
       }
 
-      tl.kill();
+      ctx.revert();
     };
   }, [donate, sound, speech, onAnimationEnd]);
   

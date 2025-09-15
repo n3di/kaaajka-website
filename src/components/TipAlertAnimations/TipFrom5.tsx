@@ -3,9 +3,9 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { DonatePayload, SoundConfig, SpeechConfig } from '@/types';
-import 'animate.css';
 import { AudioManager } from '@/lib/AudioManager';
 import Image from 'next/image';
+import GsapTipAnimation from './GsapTipAnimation';
 
 interface TipFrom5Props {
   donate: DonatePayload;
@@ -90,36 +90,30 @@ const TipFrom5: React.FC<TipFrom5Props> = ({
 
   return (
     <div className="donateHolder">
-      <div
-        className={
-          'donate first animate__animated ' +
-          (out ? 'animate__fadeOutUp' : 'animate__fadeInDownBig')
-        }
-        onAnimationEnd={() => {
-          if (out) onAnimationEnd();
-        }}
-      >
-        {!!images.length && (
-          <Image
-            src={images[0]}
-            alt="Tip"
-            width={52}
-            height={52}
-            className="image"
-            unoptimized
-          />
-        )}
+      <GsapTipAnimation out={out} onAnimationEnd={onAnimationEnd}>
+        <div className="donate first">
+          {!!images.length && (
+            <Image
+              src={images[0]}
+              alt="Tip"
+              width={52}
+              height={52}
+              className="image"
+              unoptimized
+            />
+          )}
 
-        <div className={'user animate__animated animate__pulse'}>
-          <span className="nickname">{donate.nickname} </span>
-          wrzuca
-          <span className="amount"> {formatted}</span>
+          <div className="user">
+            <span className="nickname">{donate.nickname} </span>
+            wrzuca
+            <span className="amount"> {formatted}</span>
+          </div>
+
+          <div className="text">{donate.message}</div>
         </div>
-
-        <div className="text">{donate.message}</div>
-      </div>
+      </GsapTipAnimation>
     </div>
-  );  
+  );
 };
 
 export default TipFrom5;

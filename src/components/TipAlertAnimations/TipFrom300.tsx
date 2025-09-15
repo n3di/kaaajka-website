@@ -3,10 +3,9 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { DonatePayload, SoundConfig, SpeechConfig } from '@/types';
-import 'animate.css';
 import { AudioManager } from '@/lib/AudioManager';
 import Image from 'next/image';
-import MoneyRain from '@/components/MoneyRain';
+import GsapTipAnimation from './GsapTipAnimation';
 
 interface TipFrom300Props {
   donate: DonatePayload;
@@ -89,73 +88,56 @@ const TipFrom300: React.FC<TipFrom300Props> = ({
 
   return (
     <div className="donateHolder">
-      <div
-        className={'animate__animated ' + (out ? 'animate__fadeOutUp' : '')}
-        onAnimationEnd={() => {
-          if (out) onAnimationEnd();
-        }}
-      >
-        <MoneyRain count={150} />
-
-        <div
-          className={
-            'haloFloats animate__animated ' + (out ? 'animate__fadeOutUp' : '')
-          }
-        >
-          {[...Array(30)].map((_, i) => (
-            <strong className="halo" key={`haloFloat_${i}`}>
-              HALO
-            </strong>
-          ))}
-        </div>
-
-        <div
-          className={
-            'donate seventh animate__animated ' +
-            (out ? 'animate__fadeOutUp' : '')
-          }
-        >
-          <div className="coZaPojeb animate__animated animate__flash">
-            <span className="co animate__animated animate__fadeInDownBig">
-              !!! CO
-            </span>
-            <span className="za animate__animated animate__fadeInDownBig">
-              {' '}
-              ZA{' '}
-            </span>
-            <span className="pojeb animate__animated animate__fadeInDownBig">
-              POJEB !!!
-            </span>
+      <GsapTipAnimation out={out} onAnimationEnd={onAnimationEnd}>
+        <>
+          <div className="moneyRain">
+            {[...Array(150)].map((_, i) => (
+              <i className="rain" key={`rain_${i}`} />
+            ))}
           </div>
 
-          {!!images.length && (
-            <Image
-              src={images[0]}
-              alt="Tip"
-              width={52}
-              height={52}
-              className="image animate__animated animate__fadeInRightBig"
-              unoptimized
-            />
-          )}
-
-          <div className="user animate__animated animate__fadeInUpBig">
-            <span className="donateInfo animate__animated animate__pulse">
-              <span className="nickname"> {donate.nickname} </span>
-              <br />
-              <span className="wtf">pierdolnął/ęła</span>
-              <br />
-              <span className="wtf">!! WTF !!</span>
-              <span className="amount"> {formatted} </span>
-              <span className="wtf">!! WTF !!</span>
-            </span>
+          <div className="haloFloats">
+            {[...Array(30)].map((_, i) => (
+              <strong className="halo" key={`haloFloat_${i}`}>
+                HALO
+              </strong>
+            ))}
           </div>
 
-          <div className="text animate__animated animate__fadeInUpBig">
-            {donate.message}
+          <div className="donate seventh">
+            <div className="coZaPojeb">
+              <span className="co">!!! CO</span>
+              <span className="za"> ZA </span>
+              <span className="pojeb"> POJEB !!!</span>
+            </div>
+
+            {!!images.length && (
+              <Image
+                src={images[0]}
+                alt="Tip"
+                width={52}
+                height={52}
+                className="image"
+                unoptimized
+              />
+            )}
+
+            <div className="user">
+              <span className="donateInfo">
+                <span className="nickname"> {donate.nickname} </span>
+                <br />
+                <span className="wtf">pierdolnął/ęła</span>
+                <br />
+                <span className="wtf">!! WTF !!</span>
+                <span className="amount"> {formatted} </span>
+                <span className="wtf">!! WTF !!</span>
+              </span>
+            </div>
+
+            <div className="text">{donate.message}</div>
           </div>
-        </div>
-      </div>
+        </>
+      </GsapTipAnimation>
     </div>
   );
 };
