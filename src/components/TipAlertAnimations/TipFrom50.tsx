@@ -3,9 +3,9 @@
 'use client';
 import React, { useEffect, useState, useRef } from 'react';
 import { DonatePayload, SoundConfig, SpeechConfig } from '@/types';
-import 'animate.css';
 import { AudioManager } from '@/lib/AudioManager';
 import Image from 'next/image';
+import GsapTipAnimation from './GsapTipAnimation';
 
 interface TipFrom50Props {
   donate: DonatePayload;
@@ -80,36 +80,30 @@ const TipFrom50: React.FC<TipFrom50Props> = ({
 
   return (
     <div className="donateHolder">
-      <div
-        className={
-          'donate fourth animate__animated ' +
-          (out ? 'animate__fadeOutUp' : 'animate__fadeInDownBig')
-        }
-        onAnimationEnd={() => {
-          if (out) onAnimationEnd();
-        }}
-      >
-        {!!images.length && (
-          <Image
-            src={images[0]}
-            alt="Tip"
-            width={52}
-            height={52}
-            className="image"
-            unoptimized
-          />
-        )}
+      <GsapTipAnimation out={out} onAnimationEnd={onAnimationEnd}>
+        <div className="donate fourth">
+          {!!images.length && (
+            <Image
+              src={images[0]}
+              alt="Tip"
+              width={52}
+              height={52}
+              className="image"
+              unoptimized
+            />
+          )}
 
-        <div className="user animate__animated animate__pulse">
-          WOWOW!!
-          <span className="nickname"> {donate.nickname} </span>
-          daje
-          <span className="amount"> {formatted} </span>
-          !! TAK O!
+          <div className="user">
+            WOWOW!!
+            <span className="nickname"> {donate.nickname} </span>
+            daje
+            <span className="amount"> {formatted} </span>
+            !! TAK O!
+          </div>
+
+          <div className="text">{donate.message}</div>
         </div>
-
-        <div className="text">{donate.message}</div>
-      </div>
+      </GsapTipAnimation>
     </div>
   );
 };
