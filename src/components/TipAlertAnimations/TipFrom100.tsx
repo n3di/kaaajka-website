@@ -3,9 +3,9 @@
 'use client';
 import React, { useEffect, useState, useRef } from 'react';
 import { DonatePayload, SoundConfig, SpeechConfig } from '@/types';
-import 'animate.css';
 import { AudioManager } from '@/lib/AudioManager';
 import Image from 'next/image';
+import GsapTipAnimation from './GsapTipAnimation';
 
 interface TipFrom100Props {
   donate: DonatePayload;
@@ -107,39 +107,33 @@ const TipFrom100: React.FC<TipFrom100Props> = ({
         ))}
       </div>
 
-      <div
-        className={
-          'donate fifth animate__animated ' +
-          (out ? 'animate__fadeOutUp' : 'animate__fadeInDownBig')
-        }
-        onAnimationEnd={() => {
-          if (out) onAnimationEnd();
-        }}
-      >
-        {!!images.length && (
-          <Image
-            src={images[0]}
-            alt="Tip"
-            width={52}
-            height={52}
-            className="image"
-            unoptimized
-          />
-        )}
+      <GsapTipAnimation out={out} onAnimationEnd={onAnimationEnd}>
+        <div className="donate fifth">
+          {!!images.length && (
+            <Image
+              src={images[0]}
+              alt="Tip"
+              width={52}
+              height={52}
+              className="image"
+              unoptimized
+            />
+          )}
 
-        <div className="user animate__animated animate__pulse">
-          <div>
-            Ale, że
-            <span className="nickname"> {donate.nickname} </span>
-            wpłacił
+          <div className="user">
+            <div>
+              Ale, że
+              <span className="nickname"> {donate.nickname} </span>
+              wpłacił
+            </div>
+            <div>
+              <span className="amount"> {formatted}?? </span> OMG!
+            </div>
           </div>
-          <div>
-            <span className="amount"> {formatted}?? </span> OMG!
-          </div>
+
+          <div className="text">{donate.message}</div>
         </div>
-
-        <div className="text">{donate.message}</div>
-      </div>
+      </GsapTipAnimation>
     </div>
   );
 };

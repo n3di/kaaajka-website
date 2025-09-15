@@ -3,9 +3,9 @@
 'use client';
 import React, { useEffect, useState, useRef } from 'react';
 import { DonatePayload, SoundConfig, SpeechConfig } from '@/types';
-import gsap from 'gsap';
 import { AudioManager } from '@/lib/AudioManager';
 import Image from 'next/image';
+import GsapTipAnimation from './GsapTipAnimation';
 
 interface TipFrom5Props {
   donate: DonatePayload;
@@ -114,26 +114,28 @@ const TipFrom5: React.FC<TipFrom5Props> = ({
 
   return (
     <div className="donateHolder">
-      <div ref={containerRef} className="donate first">
-        {!!images.length && (
-          <Image
-            src={images[0]}
-            alt="Tip"
-            width={52}
-            height={52}
-            className="image"
-            unoptimized
-          />
-        )}
+      <GsapTipAnimation out={out} onAnimationEnd={onAnimationEnd}>
+        <div className="donate first">
+          {!!images.length && (
+            <Image
+              src={images[0]}
+              alt="Tip"
+              width={52}
+              height={52}
+              className="image"
+              unoptimized
+            />
+          )}
 
-        <div ref={userRef} className="user">
-          <span className="nickname">{donate.nickname} </span>
-          wrzuca
-          <span className="amount"> {formatted}</span>
+          <div className="user">
+            <span className="nickname">{donate.nickname} </span>
+            wrzuca
+            <span className="amount"> {formatted}</span>
+          </div>
+
+          <div className="text">{donate.message}</div>
         </div>
-
-        <div ref={textRef} className="text">{donate.message}</div>
-      </div>
+      </GsapTipAnimation>
     </div>
   );
 };
