@@ -73,10 +73,11 @@ const Default: React.FC<DefaultProps> = ({
 
       await new Promise((res) => setTimeout(res, 1000));
       setOut(true);
+      onAnimationEnd();
     };
 
     startPlayback();
-  }, [donate.amount, donate.commission, donate.id, donate.message, donate.nickname, out, sound?.url, sound?.volume, speech, withCommission]);
+  }, [donate.amount, donate.commission, donate.id, donate.message, donate.nickname, onAnimationEnd, out, sound?.url, sound?.volume, speech, withCommission]);
 
 
   const amount = withCommission
