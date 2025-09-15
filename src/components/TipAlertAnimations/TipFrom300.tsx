@@ -6,6 +6,7 @@ import { DonatePayload, SoundConfig, SpeechConfig } from '@/types';
 import 'animate.css';
 import { AudioManager } from '@/lib/AudioManager';
 import Image from 'next/image';
+import MoneyRain from '@/components/MoneyRain';
 
 interface TipFrom300Props {
   donate: DonatePayload;
@@ -94,11 +95,7 @@ const TipFrom300: React.FC<TipFrom300Props> = ({
           if (out) onAnimationEnd();
         }}
       >
-        <div className="moneyRain">
-          {[...Array(150)].map((_, i) => (
-            <i className="rain" key={`rain_${i}`} />
-          ))}
-        </div>
+        <MoneyRain count={150} />
 
         <div
           className={
