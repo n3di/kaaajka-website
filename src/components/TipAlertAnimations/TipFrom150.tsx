@@ -86,11 +86,7 @@ const TipFrom150: React.FC<TipFrom150Props> = ({
 
   return (
     <div className="donateHolder">
-      <div className="moneyRain">
-        {[...Array(150)].map((_, i) => (
-          <i className="rain" key={`rain_${i}`} />
-        ))}
-      </div>
+      <MoneyRain count={150} />
 
       <GsapTipAnimation out={out} onAnimationEnd={onAnimationEnd}>
         <div className="donate sixth">
