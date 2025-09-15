@@ -1,9 +1,9 @@
 // /app/components/TipAlertAnimations/TipFrom5.ts
 
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { DonatePayload, SoundConfig, SpeechConfig } from '@/types';
-import 'animate.css';
+import gsap from 'gsap';
 import { AudioManager } from '@/lib/AudioManager';
 import Image from 'next/image';
 
@@ -27,7 +27,25 @@ const TipFrom5: React.FC<TipFrom5Props> = ({
 }) => {
   const [out, setOut] = useState(false);
 
-  const hasPlayedRef = React.useRef<string | null>(null);
+  const hasPlayedRef = useRef<string | null>(null);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const userRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+  const tlRef = useRef<gsap.core.Timeline>();
+
+  useEffect(() => {
+    if (!containerRef.current || !userRef.current || !textRef.current) return;
+    const tl = gsap.timeline();
+    tl.from(containerRef.current, { y: -200, opacity: 0 })
+      .from(userRef.current, { scale: 0, opacity: 0 }, '<')
+      .from(textRef.current, { y: 50, opacity: 0 }, '<');
+    tlRef.current = tl;
+
+    return () => {
+      tl.kill();
+    };
+  }, []);
 
   useEffect(() => {
     // Zabezpieczenie przed podwójnym wywołaniem (Strict Mode)
@@ -78,6 +96,12 @@ const TipFrom5: React.FC<TipFrom5Props> = ({
     startPlayback();
   }, [donate.amount, donate.commission, donate.id, donate.message, donate.nickname, out, sound?.url, sound?.volume, speech, withCommission]);
 
+  useEffect(() => {
+    if (!out || !tlRef.current || !containerRef.current) return;
+    tlRef.current
+      .to(containerRef.current, { y: -200, opacity: 0 })
+      .eventCallback('onComplete', onAnimationEnd);
+  }, [out, onAnimationEnd]);
 
   const amount = withCommission
     ? donate.amount - donate.commission
@@ -90,15 +114,7 @@ const TipFrom5: React.FC<TipFrom5Props> = ({
 
   return (
     <div className="donateHolder">
-      <div
-        className={
-          'donate first animate__animated ' +
-          (out ? 'animate__fadeOutUp' : 'animate__fadeInDownBig')
-        }
-        onAnimationEnd={() => {
-          if (out) onAnimationEnd();
-        }}
-      >
+      <div ref={containerRef} className="donate first">
         {!!images.length && (
           <Image
             src={images[0]}
@@ -110,16 +126,16 @@ const TipFrom5: React.FC<TipFrom5Props> = ({
           />
         )}
 
-        <div className={'user animate__animated animate__pulse'}>
+        <div ref={userRef} className="user">
           <span className="nickname">{donate.nickname} </span>
           wrzuca
           <span className="amount"> {formatted}</span>
         </div>
 
-        <div className="text">{donate.message}</div>
+        <div ref={textRef} className="text">{donate.message}</div>
       </div>
     </div>
-  );  
+  );
 };
 
 export default TipFrom5;
