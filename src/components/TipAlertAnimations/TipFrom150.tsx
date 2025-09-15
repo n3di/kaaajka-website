@@ -3,9 +3,9 @@
 'use client';
 import React, { useEffect, useState, useRef } from 'react';
 import { DonatePayload, SoundConfig, SpeechConfig } from '@/types';
-import 'animate.css';
 import { AudioManager } from '@/lib/AudioManager';
 import Image from 'next/image';
+import GsapTipAnimation from './GsapTipAnimation';
 
 interface TipFrom150Props {
   donate: DonatePayload;
@@ -92,54 +92,41 @@ const TipFrom150: React.FC<TipFrom150Props> = ({
         ))}
       </div>
 
-      <div
-        className={
-          'donate sixth animate__animated ' + (out ? 'animate__fadeOutUp' : '')
-        }
-        onAnimationEnd={() => {
-          if (out) onAnimationEnd();
-        }}
-      >
-        {!showTogether && (
-          <>
-            <div className="halo h1 animate__animated animate__fadeInDownBig">
-              !!! HALO !!!
-            </div>
-            <div className="halo h2 animate__animated animate__fadeInDownBig">
-              !!! HALO !!!
-            </div>
-          </>
-        )}
-        {showTogether && (
-          <div className="haloTogether animate__animated animate__flash">
-            !!! HALO HALO !!!
+      <GsapTipAnimation out={out} onAnimationEnd={onAnimationEnd}>
+        <div className="donate sixth">
+          {!showTogether && (
+            <>
+              <div className="halo h1">!!! HALO !!!</div>
+              <div className="halo h2">!!! HALO !!!</div>
+            </>
+          )}
+          {showTogether && (
+            <div className="haloTogether">!!! HALO HALO !!!</div>
+          )}
+
+          {!!images.length && (
+            <Image
+              src={images[0]}
+              alt="Tip"
+              width={52}
+              height={52}
+              className="image"
+              unoptimized
+            />
+          )}
+
+          <div className="user">
+            <span className="lala">
+              <span className="nickname"> {donate.nickname} </span>
+              wleciał/a za
+              <span className="amount"> {formatted} </span>
+              Co jest !?
+            </span>
           </div>
-        )}
 
-        {!!images.length && (
-          <Image
-            src={images[0]}
-            alt="Tip"
-            width={52}
-            height={52}
-            className="image animate__animated animate__fadeInRightBig"
-            unoptimized
-          />
-        )}
-
-        <div className="user animate__animated animate__fadeInUpBig">
-          <span className="lala animate__animated animate__pulse">
-            <span className="nickname"> {donate.nickname} </span>
-            wleciał/a za
-            <span className="amount"> {formatted} </span>
-            Co jest !?
-          </span>
+          <div className="text">{donate.message}</div>
         </div>
-
-        <div className="text animate__animated animate__fadeInUpBig">
-          {donate.message}
-        </div>
-      </div>
+      </GsapTipAnimation>
     </div>
   );
 };
