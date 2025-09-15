@@ -79,6 +79,10 @@ const Default: React.FC<DefaultProps> = ({
     startPlayback();
   }, [donate.amount, donate.commission, donate.id, donate.message, donate.nickname, onAnimationEnd, out, sound?.url, sound?.volume, speech, withCommission]);
 
+  useEffect(() => {
+    if (out) onAnimationEnd();
+  }, [out, onAnimationEnd]);
+
 
   const amount = withCommission
     ? donate.amount - donate.commission
